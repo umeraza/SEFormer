@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: ablation_no_global_encoder_mlp
+model:
+  global:
+    mode: mlp
+output:
+  dir: runs/ablations/no_global_encoder

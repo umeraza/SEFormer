@@ -1,0 +1,18 @@
+_base_: ../daisee.yaml
+experiment: ablation_parameter_budget_2views
+model:
+  views:
+    - name: fine
+      patch_size: [2, 8, 8]
+      embed_dim: 400
+      depth: 3
+      heads: 8
+      mlp_dim: 800
+    - name: coarse
+      patch_size: [8, 8, 8]
+      embed_dim: 400
+      depth: 3
+      heads: 8
+      mlp_dim: 800
+output:
+  dir: runs/ablations/parameter_matched_2views

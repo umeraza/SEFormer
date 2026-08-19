@@ -1,0 +1,102 @@
+seed: 42
+experiment: seformer
+
+data:
+  dataset: daisee
+  manifest: data/manifest.csv
+  frames: 32
+  temporal_stride: 1
+  image_size: [112, 112]
+  num_classes: 4
+  class_names: [Very Low, Low, High, Very High]
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  decode_backend: opencv
+  short_clip_policy: repeat_last
+  mean: [0.5, 0.5, 0.5]
+  std: [0.5, 0.5, 0.5]
+  augmentation:
+    vertical_flip_p: 0.5
+    gaussian_noise_p: 0.5
+    gaussian_noise_std: 0.01
+
+model:
+  in_channels: 3
+  patchification: 3d
+  use_cls_token: true
+  pooling: sequence
+  pool_include_cls: true
+  views:
+    - name: fine
+      patch_size: [2, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: mid
+      patch_size: [4, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: coarse
+      patch_size: [8, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+  encoder_dropout: 0.1
+  attention_dropout: 0.1
+  drop_path: 0.1
+  gradient_checkpointing: true
+  fusion:
+    enabled: true
+    direction: coarse_to_fine
+    heads: 8
+    dropout: 0.1
+  global:
+    mode: transformer
+    dim: 256
+    depth: 4
+    heads: 8
+    mlp_dim: 1024
+    dropout: 0.1
+    attention_dropout: 0.1
+    drop_path: 0.1
+  classifier_hidden: 256
+  classifier_dropout: 0.2
+
+training:
+  device: auto
+  epochs: 100
+  batch_size: 2
+  gradient_accumulation: 4
+  optimizer: adamw
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  scheduler: cosine
+  min_learning_rate: 0.000001
+  warmup_epochs: 0
+  loss: cross_entropy
+  label_smoothing: 0.1
+  class_weights: null
+  weighted_sampler: false
+  amp: true
+  compile: false
+  grad_clip_norm: 1.0
+  checkpoint_metric: paper_f1
+  checkpoint_mode: max
+  early_stopping_patience: 0
+
+evaluation:
+  batch_size: 4
+  metric_average: macro
+  save_attention: false
+  bootstrap_samples: 0
+
+output:
+  dir: runs/seformer
+  save_last: true
+  save_best: true
+  log_every: 20

@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: control_cvaf_bidirectional_abstract_claim
+model:
+  fusion:
+    direction: bidirectional
+output:
+  dir: runs/ablations/cvaf_bidirectional_control

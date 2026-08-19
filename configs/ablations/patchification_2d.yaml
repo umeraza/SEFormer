@@ -1,0 +1,6 @@
+_base_: ../daisee.yaml
+experiment: ablation_2d_patchification_temporal_pooling
+model:
+  patchification: 2d
+output:
+  dir: runs/ablations/patchification_2d

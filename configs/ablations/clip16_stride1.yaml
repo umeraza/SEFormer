@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: ablation_clip16_stride1
+data:
+  frames: 16
+  temporal_stride: 1
+output:
+  dir: runs/ablations/clip16_stride1

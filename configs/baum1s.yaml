@@ -1,0 +1,9 @@
+_base_: base.yaml
+experiment: seformer_baum1s_six_basic_emotions
+data:
+  dataset: baum1s
+  manifest: data/baum1s_faces.csv
+  num_classes: 6
+  class_names: [Joy, Fear, Anger, Surprise, Sadness, Disgust]
+output:
+  dir: runs/baum1s_seed42

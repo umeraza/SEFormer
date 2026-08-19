@@ -1,0 +1,10 @@
+_base_: ../daisee.yaml
+experiment: control_global_depth4_width384
+model:
+  global:
+    dim: 384
+    depth: 4
+    heads: 8
+    mlp_dim: 1536
+output:
+  dir: runs/ablations/global_depth4_width384_control

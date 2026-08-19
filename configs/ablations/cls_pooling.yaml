@@ -1,0 +1,6 @@
+_base_: ../daisee.yaml
+experiment: ablation_cls_pooling
+model:
+  pooling: cls
+output:
+  dir: runs/ablations/cls_pooling

@@ -1,0 +1,9 @@
+_base_: base.yaml
+experiment: seformer_daisee
+data:
+  dataset: daisee
+  manifest: data/daisee_faces.csv
+  num_classes: 4
+  class_names: [Very Low, Low, High, Very High]
+output:
+  dir: runs/daisee_seed42

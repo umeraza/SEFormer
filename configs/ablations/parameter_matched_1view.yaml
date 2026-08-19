@@ -1,0 +1,14 @@
+_base_: ../daisee.yaml
+experiment: ablation_parameter_budget_1view
+model:
+  views:
+    - name: mid
+      patch_size: [4, 8, 8]
+      embed_dim: 624
+      depth: 3
+      heads: 8
+      mlp_dim: 1248
+  fusion:
+    enabled: false
+output:
+  dir: runs/ablations/parameter_matched_1view

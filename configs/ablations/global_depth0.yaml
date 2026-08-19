@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: ablation_global_depth0
+model:
+  global:
+    depth: 0
+output:
+  dir: runs/ablations/global_depth0

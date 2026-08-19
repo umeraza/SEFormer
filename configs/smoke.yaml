@@ -1,0 +1,54 @@
+_base_: base.yaml
+experiment: seformer_smoke
+data:
+  dataset: synthetic
+  manifest: null
+  synthetic_samples: 12
+  frames: 8
+  temporal_stride: 1
+  image_size: [32, 32]
+  num_classes: 4
+  class_names: [Class 0, Class 1, Class 2, Class 3]
+  num_workers: 0
+  persistent_workers: false
+model:
+  views:
+    - name: fine
+      patch_size: [2, 8, 8]
+      embed_dim: 32
+      depth: 1
+      heads: 4
+      mlp_dim: 64
+    - name: mid
+      patch_size: [4, 8, 8]
+      embed_dim: 32
+      depth: 1
+      heads: 4
+      mlp_dim: 64
+    - name: coarse
+      patch_size: [8, 8, 8]
+      embed_dim: 32
+      depth: 1
+      heads: 4
+      mlp_dim: 64
+  gradient_checkpointing: false
+  fusion:
+    heads: 4
+  global:
+    dim: 32
+    depth: 1
+    heads: 4
+    mlp_dim: 64
+  classifier_hidden: 32
+training:
+  device: cpu
+  epochs: 1
+  batch_size: 2
+  gradient_accumulation: 1
+  amp: false
+  compile: false
+evaluation:
+  batch_size: 2
+output:
+  dir: runs/smoke
+  log_every: 1

@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: control_no_vertical_flip
+data:
+  augmentation:
+    vertical_flip_p: 0.0
+output:
+  dir: runs/ablations/no_vertical_flip_control

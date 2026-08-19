@@ -1,0 +1,36 @@
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.DS_Store
+
+# Data, biometric media, checkpoints, and run products must not be committed.
+data/
+datasets/
+runs/
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+*.avi
+*.mp4
+*.mov
+*.mkv
+
+# Local configuration and secrets.
+.env
+.env.*
+!.env.example
+wandb/
+mlruns/

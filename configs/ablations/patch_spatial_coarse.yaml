@@ -1,0 +1,24 @@
+_base_: ../daisee.yaml
+experiment: ablation_patch_spatial_16x16
+model:
+  views:
+    - name: fine
+      patch_size: [2, 16, 16]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: mid
+      patch_size: [4, 16, 16]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: coarse
+      patch_size: [8, 16, 16]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+output:
+  dir: runs/ablations/patch_spatial_coarse

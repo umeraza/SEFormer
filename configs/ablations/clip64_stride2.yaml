@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: ablation_clip64_stride2
+data:
+  frames: 64
+  temporal_stride: 2
+output:
+  dir: runs/ablations/clip64_stride2

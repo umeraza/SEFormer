@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the SEFormer manuscript and the datasets used."
+title: "SEFormer: Cross-View Spatio-Temporal Transformer for Student Engagement Recognition from Facial Video Cues"
+type: software
+authors:
+  - family-names: Alfraihi
+    given-names: Hessa
+  - family-names: Mukhtar
+    given-names: Umar Raza
+  - family-names: Mukhtar
+    given-names: Hamza
+date-released: 2026-08-19
+license: MIT
+keywords:
+  - student engagement recognition
+  - video transformer
+  - cross-view attention
+  - affective computing
+  - DAiSEE
+  - BAUM-1

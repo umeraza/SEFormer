@@ -1,0 +1,10 @@
+_base_: ../daisee.yaml
+experiment: ablation_global_depth8_width384
+model:
+  global:
+    dim: 384
+    depth: 8
+    heads: 8
+    mlp_dim: 1536
+output:
+  dir: runs/ablations/global_depth8_width384

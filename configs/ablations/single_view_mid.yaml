@@ -1,0 +1,14 @@
+_base_: ../daisee.yaml
+experiment: ablation_single_view_mid
+model:
+  views:
+    - name: mid
+      patch_size: [4, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+  fusion:
+    enabled: false
+output:
+  dir: runs/ablations/single_view_mid

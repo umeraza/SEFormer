@@ -1,0 +1,7 @@
+_base_: ../daisee.yaml
+experiment: ablation_no_cvaf_late_fusion
+model:
+  fusion:
+    enabled: false
+output:
+  dir: runs/ablations/no_cvaf

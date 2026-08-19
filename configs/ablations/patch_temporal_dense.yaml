@@ -1,0 +1,24 @@
+_base_: ../daisee.yaml
+experiment: ablation_patch_temporal_dense_1_4_8
+model:
+  views:
+    - name: fine
+      patch_size: [1, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: mid
+      patch_size: [4, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+    - name: coarse
+      patch_size: [8, 8, 8]
+      embed_dim: 512
+      depth: 3
+      heads: 8
+      mlp_dim: 1024
+output:
+  dir: runs/ablations/patch_temporal_dense
