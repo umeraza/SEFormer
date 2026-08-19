@@ -116,8 +116,7 @@ python scripts/train.py \
 
 The default objective is multiclass cross-entropy with label smoothing. AdamW,
 cosine learning-rate decay, stochastic depth, Gaussian noise, and vertical flip
-are implemented because the manuscript names them. Their unreported numeric
-values are explicit assumptions in the configs.
+are implemented.
 
 Evaluate the selected checkpoint and save predictions, macro metrics,
 per-class metrics, and confusion matrix:
