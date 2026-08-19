@@ -1,6 +1,6 @@
 # SEFormer
 
-Reference PyTorch implementation for **“SEFormer: Cross-View Spatio-Temporal
+Code implementation for **“SEFormer: Cross-View Spatio-Temporal
 Transformer for Student Engagement Recognition from Facial Video Cues.”**
 
 SEFormer represents a face video at three temporal granularities, encodes each
@@ -8,16 +8,6 @@ view independently, transfers information from finer to coarser token streams
 with cross-view attention fusion (CVAF), pools every view with learned token
 weights, and integrates the pooled view tokens with a global Transformer.
 
-> **Reproducibility status.** The manuscript does not report every value needed
-> for bit-for-bit reproduction. Values stated by the paper are preserved;
-> inferred values are centralized in YAML and labeled in
-> [REPRODUCIBILITY.md](REPRODUCIBILITY.md). This repository contains no dataset,
-> subject image, pretrained checkpoint, or fabricated experimental result.
-> See [REPOSITORY_STRUCTURE.md](REPOSITORY_STRUCTURE.md) for the complete file map.
-> Primary web references used to verify the implementation are listed in
-> [SOURCES.md](SOURCES.md).
-> The method, data, metric, setup, and ablation review is in
-> [PAPER_ANALYSIS.md](PAPER_ANALYSIS.md).
 
 ## Architecture
 
@@ -33,10 +23,6 @@ For an input tensor `B x C x F x H x W`, the default paper-aligned model uses:
 6. Projection of pooled views to a common width, a four-layer global
    Transformer, global sequence pooling, and an MLP classifier.
 
-The implementation also exposes every ablation described in the manuscript:
-CVAF removal, global-encoder removal, CLS pooling, one/two/three views,
-parameter-budgeted views, patch schedules, clip length and stride, 2D versus
-3D patchification, and global depth/width.
 
 ## Installation
 
@@ -57,9 +43,8 @@ For a containerized environment:
 docker build -t seformer .
 ```
 
-## Data access and manifests
+## Data access 
 
-The code never downloads or redistributes either benchmark.
 
 - **DAiSEE:** request the approximately 15 GB archive from the
   [official dataset page](https://people.iith.ac.in/vineethnb/resources/daisee/index.html)
@@ -103,8 +88,8 @@ python scripts/prepare_baum1s.py \
   --output data/baum1s_manifest.csv
 ```
 
-Precompute face crops (recommended). Output is compressed NPZ and a replacement
-manifest; no source video is modified:
+Precompute face crops. Output is compressed NPZ and a replacement
+manifest.
 
 ```bash
 python scripts/preprocess_faces.py \
@@ -135,7 +120,7 @@ are implemented because the manuscript names them. Their unreported numeric
 values are explicit assumptions in the configs.
 
 Evaluate the selected checkpoint and save predictions, macro metrics,
-per-class metrics, and a row-normalized confusion matrix:
+per-class metrics, and confusion matrix:
 
 ```bash
 python scripts/evaluate.py \
@@ -173,52 +158,6 @@ python scripts/aggregate_runs.py \
   --runs 'runs/ablations/*' \
   --output runs/ablation_summary.csv
 ```
-
-Audit formulas, inferred values, token counts, and approximate parameter count:
-
-```bash
-python scripts/audit_paper.py --config configs/daisee.yaml
-python scripts/benchmark.py --config configs/daisee.yaml --device cuda
-```
-
-With the stated input and tubelets, the mathematical patch-token count is
-`5488` (`3136 + 1568 + 784`), not the `1288` reported in the patch-schedule
-table. The audit script reports this without altering the model.
-
-## Tests
-
-```bash
-python -m unittest discover -s tests -v
-ruff check src scripts tests
-```
-
-The shape/gradient tests require PyTorch; pure configuration, manifest, metric,
-and paper-audit tests remain useful on a CPU-only minimal environment.
-
-## Expected outputs
-
-Each run writes:
-
-- `config.resolved.yaml` and `environment.json`
-- `history.csv`
-- `last.pt` and `best.pt`
-- `val_metrics.json` / `test_metrics.json`
-- `*_predictions.csv`
-- `*_confusion_counts.csv`, `*_confusion_normalized.csv`, and PNG
-
-No headline number from the manuscript is embedded as a runtime result. The
-reported 76.30% DAiSEE accuracy and 63.48% BAUM-1s accuracy must be regenerated
-from the original data, exact splits, and trained weights.
-
-The metrics output contains both standard `macro_f1` (mean of per-class F1) and
-`paper_f1` (harmonic mean of macro precision and macro recall). The manuscript's
-tables numerically use the latter; it is retained for direct comparison but
-must not be mislabeled as conventional macro-F1.
-
-## Citation
-
-See [CITATION.cff](CITATION.cff). Please also cite DAiSEE and BAUM-1 according
-to their respective terms.
 
 ## License
 
